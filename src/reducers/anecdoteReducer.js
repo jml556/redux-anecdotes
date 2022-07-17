@@ -43,22 +43,6 @@ const notificationSlice = createSlice({
   },
 });
 
-const initialNotificationsState = {}
-
-const notificationSlice = createSlice({
-  name: "notifications",
-  initialState: initialNotificationsState,
-  reducers: {
-    notificationReducer(state, action) {
-      console.log(state)
-      return [
-        ...state,
-        action.payload
-      ]
-    }
-  }
-});
-
 const anecdoteSlice = createSlice({
   name: 'anecdotes',
   initialState: [],
