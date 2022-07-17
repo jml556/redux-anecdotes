@@ -1,11 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { createVoteReducer, addVoteReducer } from "./anecdoteReducer";
 
-const store = configureStore({
-  reducer: {
-    createVote: createVoteReducer,
-    addVoteReducer: addVoteReducer
-  }
-})
+import { combineReducers, createStore } from "redux";
+
+import reducers from "./anecdoteReducer";
+
+const store = createStore(reducers)
 
 export default store

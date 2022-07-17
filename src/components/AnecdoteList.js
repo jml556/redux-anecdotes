@@ -8,8 +8,8 @@ const AnecdoteList = () => {
     dispatch(addVoteReducer(id));
   };
   const anecdotes = useSelector((state) => {
-    console.log(state);
-    return state;
+    console.log(state.anecdotes);
+    return state.anecdotes;
   });
 
   return (
