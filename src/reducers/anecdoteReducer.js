@@ -1,14 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const anecdotesAtStart = [
-  'If it hurts, do it more often',
-  'Adding manpower to a late software project makes it later!',
-  'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
-  'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
-  'Premature optimization is the root of all evil.',
-  'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
-];
-
 const getId = () => (100000 * Math.random()).toFixed(0);
 
 export const asObject = (anecdote) => {
@@ -19,27 +10,43 @@ export const asObject = (anecdote) => {
   };
 };
 
-export const incrementVote = (id) => {
-  return {
-    type: 'INCREMENT',
-    payload: id,
-  };
-};
+const filterSlice = createSlice({
+  name: 'filter',
+  initialState: '',
+  reducers: {
+    changeText(state, action) {
+      return action.payload;
+    },
+  },
+});
 
-export const createVote = (text) => {
-  return {
-    type: 'CREATE_VOTE',
-    payload: text,
-  };
-};
-
-const initialState = anecdotesAtStart.map(asObject);
+const notificationSlice = createSlice({
+  name: 'notifications',
+  initialState: { notifications: [{ message: 'Hello wrold' }], show: false },
+  reducers: {
+    addNotification(state, action) {
+      return state;
+    },
+    showNotification(state, action) {
+      return {
+        ...state,
+        show: true,
+      };
+    },
+    removeNotification(state, action) {
+      return {
+        ...state,
+        show: false,
+      };
+    },
+  },
+});
 
 const anecdoteSlice = createSlice({
   name: 'anecdotes',
-  initialState,
+  initialState: [],
   reducers: {
-    addVoteReducer(state, action) {
+    addVoteCreator(state, action) {
       return state.map((item) => {
         if (item.id === action.payload) {
           return {
@@ -52,18 +59,26 @@ const anecdoteSlice = createSlice({
         };
       });
     },
-    createVoteReducer(state, action) {
-      return [
-        ...state,
-        {
-          id: getId(),
-          content: action.payload,
-          votes: 0,
-        },
-      ];
+    createVoteCreator(state, action) {
+      state.push({
+        id: getId(),
+        content: action.payload,
+        votes: 0,
+      });
+    },
+    setAnecdotes(state, action) {
+      return action.payload;
     },
   },
 });
 
-export const {addVoteReducer, createVoteReducer} = anecdoteSlice.actions
-export default anecdoteSlice.reducer
+export const { changeText } = filterSlice.actions;
+export const filterReducer = filterSlice.reducer;
+
+export const { addNotification, showNotification, removeNotification } =
+  notificationSlice.actions;
+export const notificationReducer = notificationSlice.reducer;
+
+export const { addVoteCreator, createVoteCreator, setAnecdotes } =
+  anecdoteSlice.actions;
+export const anecdoteReducer = anecdoteSlice.reducer;
