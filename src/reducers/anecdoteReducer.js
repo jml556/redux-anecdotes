@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
 
 const getId = () => (100000 * Math.random()).toFixed(0);
 
@@ -40,6 +41,22 @@ const notificationSlice = createSlice({
       };
     },
   },
+});
+
+const initialNotificationsState = {}
+
+const notificationSlice = createSlice({
+  name: "notifications",
+  initialState: initialNotificationsState,
+  reducers: {
+    notificationReducer(state, action) {
+      console.log(state)
+      return [
+        ...state,
+        action.payload
+      ]
+    }
+  }
 });
 
 const anecdoteSlice = createSlice({
