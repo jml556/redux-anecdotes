@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createVoteCreator, showNotification, removeNotification } from '../reducers/anecdoteReducer';
-import services from '../services/anecdotes'
-
+import {
+  createVoteCreator,
+  showNotification,
+  removeNotification,
+  createData,
+} from '../reducers/anecdoteReducer';
 
 const AnecdoteForm = () => {
   const [text, setText] = useState('');
   const dispatch = useDispatch();
 
   const addVote = async (e) => {
-    e.preventDefault();    
+    e.preventDefault();
     dispatch(createVoteCreator(text));
-    const data = await services.createAnecdote(text, 12, 5)
-    console.log(data)
-    setText('')
-    dispatch(showNotification())
+    dispatch(createData(text, 12, 5));
+    setText('');
+    dispatch(showNotification());
     setTimeout(() => {
-      dispatch(removeNotification())
-    }, 2000)
+      dispatch(removeNotification());
+    }, 2000);
   };
 
   return (

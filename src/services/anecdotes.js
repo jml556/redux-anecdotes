@@ -18,4 +18,8 @@ const createAnecdote = async (content, id, votes) => {
   return response
 }
 
+const incrementVote = async (id) => {
+  axios.put(baseUrl)
+}
+
 export default { getAll, createAnecdote }

@@ -5,7 +5,7 @@ import Filter from './components/Filter';
 import { useDispatch, useSelector } from 'react-redux';
 import services from './services/anecdotes';
 import { useEffect } from 'react';
-import { setAnecdotes } from './reducers/anecdoteReducer';
+import { setAnecdotes, fetchData } from './reducers/anecdoteReducer';
 
 const App = () => {
   const show = useSelector((state) => {
@@ -15,10 +15,7 @@ const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    (async () => {
-      const data = await services.getAll()
-      dispatch(setAnecdotes(data))
-    })()
+    dispatch(fetchData())
   }, [])
 
   return (

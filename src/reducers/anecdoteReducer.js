@@ -1,5 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { combineReducers } from "redux";
+import { createSlice } from '@reduxjs/toolkit';
+import { combineReducers } from 'redux';
+import services from '../services/anecdotes';
 
 const getId = () => (100000 * Math.random()).toFixed(0);
 
@@ -83,3 +84,22 @@ export const notificationReducer = notificationSlice.reducer;
 export const { addVoteCreator, createVoteCreator, setAnecdotes } =
   anecdoteSlice.actions;
 export const anecdoteReducer = anecdoteSlice.reducer;
+
+export const fetchData = () => {
+  return async (dispatch) => {
+    const data = await services.getAll();
+    dispatch(setAnecdotes(data));
+  };
+};
+
+export const createData = (text, num1, num2) => {
+  return async (dispatch) => {
+    const data = await services.createAnecdote(text, num1, num2);
+  };
+};
+
+export const fetchAddVote = () => {
+  return async (dispatch) => {
+    
+  }
+}
