@@ -8,14 +8,14 @@ import { useEffect } from 'react';
 import { setAnecdotes, fetchData } from './reducers/anecdoteReducer';
 
 const App = () => {
+
   const show = useSelector((state) => {
-    console.log(state)
     return state.notifications.show
   });
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchData())
+    dispatch(fetchData());
   }, [])
 
   return (

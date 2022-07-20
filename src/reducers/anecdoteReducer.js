@@ -27,7 +27,10 @@ const notificationSlice = createSlice({
   initialState: { notifications: [{ message: 'Hello wrold' }], show: false },
   reducers: {
     addNotification(state, action) {
-      return state;
+      return {
+        ...state,
+        notifications: [{ message: action.payload }],
+      };
     },
     showNotification(state, action) {
       return {
@@ -37,8 +40,8 @@ const notificationSlice = createSlice({
     },
     removeNotification(state, action) {
       return {
-        ...state,
-        show: false,
+        notifications: [{ message: '' }],
+        show: false
       };
     },
   },
@@ -98,8 +101,19 @@ export const createData = (text, num1, num2) => {
   };
 };
 
-export const fetchAddVote = () => {
+export const fetchAddVote = (id, count) => {
   return async (dispatch) => {
-    
-  }
-}
+    const data = await services.incrementVote(id, count);
+    console.log(data);
+  };
+};
+
+export const createNotification = (text, time) => {
+  return async (dispatch) => {
+    dispatch(addNotification(text));
+    dispatch(showNotification());
+    setTimeout(() => {
+      dispatch(removeNotification())
+    }, time)
+  };
+};

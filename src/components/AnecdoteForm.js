@@ -5,6 +5,7 @@ import {
   showNotification,
   removeNotification,
   createData,
+  createNotification,
 } from '../reducers/anecdoteReducer';
 
 const AnecdoteForm = () => {
@@ -16,10 +17,7 @@ const AnecdoteForm = () => {
     dispatch(createVoteCreator(text));
     dispatch(createData(text, 12, 5));
     setText('');
-    dispatch(showNotification());
-    setTimeout(() => {
-      dispatch(removeNotification());
-    }, 2000);
+    dispatch(createNotification(text, 3000))
   };
 
   return (
